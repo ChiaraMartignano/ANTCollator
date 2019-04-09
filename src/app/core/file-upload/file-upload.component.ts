@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { StateService } from '../../shared/state.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,31 +8,38 @@ import { FormBuilder, FormArray, FormControl } from '@angular/forms';
 })
 export class FileUploadComponent implements OnInit {
 
-  form = this.fb.group({
-    baseText: '',
-    witnesses: this.fb.array([])
-  });
-
-  get baseText() {
-    return this.form.get('baseText') as FormControl;
-  }
-
-  get witnesses() {
-    return this.form.get('witnesses') as FormArray;
-  }
+  baseText;
+  witnesses = [];
 
   constructor(
-    private fb: FormBuilder
+    private state: StateService
   ) {  }
 
   ngOnInit() {  }
 
   addWitness() {
-    this.witnesses.push(this.fb.control(''));
+    this.witnesses.push(null);
   }
 
   removeWitness(index) {
-    this.witnesses.removeAt(index);
+    this.witnesses.splice(index, 1);
+  }
+
+  updateBaseText() {
+    let input: any = document.getElementById('baseText');
+    if (!input) return;
+    this.baseText = input.files[0];
+  }
+
+  updateWitness(index) {
+    let input: any = document.getElementById('witness-' + index);
+    if (!input) return;
+    this.witnesses[index] = input.files[0];
+  }
+
+  uploadFiles() {
+    this.state.uploadBaseText(this.baseText);
+    this.state.uploadWitnesses(this.witnesses);
   }
 
 }
