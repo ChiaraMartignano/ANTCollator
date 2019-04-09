@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-file-upload',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FileUploadComponent implements OnInit {
 
-  constructor() { }
+  form = this.fb.group({
+    baseText: '',
+    witnesses: this.fb.array([])
+  });
 
-  ngOnInit() {
+  get baseText() {
+    return this.form.get('baseText') as FormControl;
+  }
+
+  get witnesses() {
+    return this.form.get('witnesses') as FormArray;
+  }
+
+  constructor(
+    private fb: FormBuilder
+  ) {  }
+
+  ngOnInit() {  }
+
+  addWitness() {
+    this.witnesses.push(this.fb.control(''));
+  }
+
+  removeWitness(index) {
+    this.witnesses.removeAt(index);
   }
 
 }

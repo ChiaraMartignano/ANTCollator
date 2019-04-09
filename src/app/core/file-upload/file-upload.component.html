@@ -1,3 +1,18 @@
-<p>
-  file-upload works!
-</p>
+<form [formGroup]="form">
+  <div>
+    <h3>Testo base per la collazione</h3>
+    <input type="file" [formControlName]="baseText">
+  </div>
+  <div formArrayName="aliases">
+    <h3>Testimoni</h3> <button (click)="addWitness()">Aggiungi testimone</button>
+  
+    <div *ngFor="let witness of witnesses.controls; let i=index">
+      <!-- The repeated alias template -->
+      <label>
+        Testimone:
+        <input type="file" [formControlName]="i">
+        <button (click)="removeWitness(i)">Rimuovi</button>
+      </label>
+    </div>
+  </div>
+</form>
