@@ -3,17 +3,30 @@
   <input id="baseText" type="file" (change)="updateBaseText()">
 </div>
 <div>
-  <h3>Testimoni</h3> <button (click)="addWitness()">Aggiungi testimone</button>
+  <h3>
+    Testimoni
+    <button mat-button (click)="addWitness()">
+      <mat-icon>add</mat-icon>
+      Aggiungi testimone
+    </button>
+  </h3>
 
   <div *ngFor="let witness of witnesses; let i=index">
     <!-- The repeated alias template -->
     <label>
       Testimone:
       <input id="witness-{{i}}" type="file" (change)="updateWitness(i)">
-      <button (click)="removeWitness(i)">Rimuovi</button>
+      <button mat-button (click)="removeWitness(i)" title="Rimuovi testimone">
+        <mat-icon>clear</mat-icon>
+      </button>
     </label>
   </div>
 </div>
-<div>
-  <button (click)="uploadFiles()">Carica file</button>
+<div class="center">
+  <button
+    mat-button
+    [disabled]="!baseText || witnesses.length < 1 || (witnesses.length > 0 && !witnesses[0])"
+    (click)="uploadFiles()">
+    <h3>Carica file</h3>
+  </button>
 </div>
