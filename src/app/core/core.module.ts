@@ -5,13 +5,15 @@ import { CollateButtonComponent } from './collate-button/collate-button.componen
 import { ResultComponent } from './result/result.component';
 import { CollationComponent } from './collation/collation.component';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [FileUploadComponent, CollateButtonComponent, ResultComponent, CollationComponent],
   exports: [FileUploadComponent, CollateButtonComponent, ResultComponent, CollationComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ]
 })
 export class CoreModule { }
