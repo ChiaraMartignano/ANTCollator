@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from '../../shared/state.service';
+import { UploadService } from '../../shared/upload.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,7 +12,7 @@ export class FileUploadComponent implements OnInit {
   witnesses = [];
 
   constructor(
-    private state: StateService
+    private upload: UploadService
   ) {  }
 
   ngOnInit() {  }
@@ -38,8 +38,8 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadFiles() {
-    this.state.uploadBaseText(this.baseText);
-    this.state.uploadWitnesses(this.witnesses);
+    this.upload.uploadBaseText(this.baseText);
+    this.upload.uploadWitnesses(this.witnesses);
   }
 
 }
