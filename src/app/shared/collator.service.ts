@@ -8,7 +8,7 @@ export class CollatorService {
   constructor() {
   }
 
-  collate(baseText, witnesses) {
+  collate(baseText, witnesses, names) {
     console.log(baseText, witnesses)
   }
 }

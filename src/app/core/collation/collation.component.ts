@@ -12,8 +12,10 @@ export class CollationComponent implements OnInit, OnDestroy {
 
   baseText = '';
   witnesses = [];
+  witnessesNames = [];
   baseSubscription: Subscription;
   witSubscription: Subscription;
+  namesSubscription: Subscription;
 
   constructor(
     private upload: UploadService,
@@ -27,6 +29,9 @@ export class CollationComponent implements OnInit, OnDestroy {
     this.witSubscription = this.upload.getWitnesses().subscribe((data) => {
       this.witnesses = data;
     });
+    this.namesSubscription = this.upload.getNames().subscribe((data) => {
+      this.witnessesNames = data;
+    });
   }
 
   ngOnDestroy() {
@@ -36,10 +41,13 @@ export class CollationComponent implements OnInit, OnDestroy {
     if (this.witSubscription) {
       this.witSubscription.unsubscribe();
     }
+    if (this.namesSubscription) {
+      this.namesSubscription.unsubscribe();
+    }
   }
 
   startCollation() {
-    this.collator.collate(this.baseText, this.witnesses);
+    this.collator.collate(this.baseText, this.witnesses, this.witnessesNames);
   }
 
 }

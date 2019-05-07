@@ -10,12 +10,16 @@ export class UploadService {
   baseText$: Observable<any>;
   witnesses: BehaviorSubject<any>;
   witnesses$: Observable<any>;
+  witnessesNames: BehaviorSubject<any>;
+  witnessesNames$: Observable<any>;
 
   constructor() {
     this.baseText = new BehaviorSubject('');
     this.baseText$ = this.baseText.asObservable();
     this.witnesses = new BehaviorSubject([]);
     this.witnesses$ = this.witnesses.asObservable();
+    this.witnessesNames = new BehaviorSubject([]);
+    this.witnessesNames$ = this.witnesses.asObservable();
   }
 
   getBaseText(): Observable<any> {
@@ -32,6 +36,14 @@ export class UploadService {
 
   setWitnesses(value) {
     this.witnesses.next(value);
+  }
+  
+  getNames(): Observable<any> {
+    return this.witnessesNames$;
+  }
+
+  setNames(value) {
+    this.witnessesNames.next(value);
   }
 
   uploadBaseText(baseText) {

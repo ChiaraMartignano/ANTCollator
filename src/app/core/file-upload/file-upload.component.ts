@@ -51,6 +51,7 @@ export class FileUploadComponent implements OnInit {
   uploadFiles() {
     this.upload.uploadBaseText(this.baseText);
     this.upload.uploadWitnesses(this.witnesses);
+    this.upload.setNames(this.witnessesNames);
   }
 
 }
