@@ -1,0 +1,12 @@
+header {
+  background-color: #7e7e7e;
+  color: #ffffff;
+  display: flex;
+  * {
+    flex: 1;
+  }
+  min-height: 10%;
+  margin: -30px;
+  padding: 10px 30px;
+  margin-bottom: 30px;
+}

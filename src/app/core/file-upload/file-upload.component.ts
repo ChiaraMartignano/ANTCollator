@@ -25,14 +25,14 @@ export class FileUploadComponent implements OnInit {
     this.witnesses.splice(index, 1);
   }
 
-  updateBaseText() {
-    let input: any = document.getElementById('baseText');
+  updateBaseText(event) {
+    let input: any = event.target;
     if (!input) return;
     this.baseText = input.files[0];
   }
 
-  updateWitness(index) {
-    let input: any = document.getElementById('witness-' + index);
+  updateWitness(event, index) {
+    let input: any = event.target;
     if (!input) return;
     this.witnesses[index] = input.files[0];
   }

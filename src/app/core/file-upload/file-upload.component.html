@@ -1,27 +1,29 @@
 <div>
   <h3>Testo base per la collazione</h3>
-  <input id="baseText" type="file" (change)="updateBaseText()">
+  <span *ngIf="baseText">{{baseText.name}}</span> <br/>
+  <input type="file" (change)="updateBaseText($event)">
 </div>
 <div>
   <h3>
     Testimoni
-    <button mat-button (click)="addWitness()">
-      <mat-icon>add</mat-icon>
-      Aggiungi testimone
-    </button>
   </h3>
-
   <div *ngFor="let witness of witnesses; let i=index">
-    <!-- The repeated alias template -->
     <label>
-      Testimone:
-      <input id="witness-{{i}}" type="file" (change)="updateWitness(i)">
+      {{i + 1}}. Testimone:
+      <span *ngIf="witnesses[i]">{{witnesses[i].name}}</span> <br/>
+      <input type="file" (change)="updateWitness($event, i)">
       <button mat-button (click)="removeWitness(i)" title="Rimuovi testimone">
         <mat-icon>clear</mat-icon>
       </button>
     </label>
   </div>
 </div>
+<h3>
+  <button mat-button (click)="addWitness()">
+    <mat-icon>add</mat-icon>
+    Aggiungi testimone
+  </button>
+</h3>
 <div class="center">
   <button
     mat-button
