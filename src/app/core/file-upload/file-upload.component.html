@@ -1,22 +1,22 @@
 <div>
   <h3>Testo base per la collazione</h3>
-  <span *ngIf="baseText">{{baseText.name}}</span> <br/>
+  File: <span *ngIf="baseText">{{baseText.name}}</span> <br/>
   <input type="file" (change)="updateBaseText($event)">
 </div>
 <div>
   <h3>
     Testimoni
   </h3>
-  <div *ngFor="let witness of witnesses; let i=index">
-    <label>
-      {{i + 1}}. Testimone:
-      <span *ngIf="witnesses[i]">{{witnesses[i].name}}</span> <br/>
+  <ol>
+    <li *ngFor="let witness of witnesses; let i=index">
+      Sigla: <input matInput type="text" [value]="witnessesNames[i] || 'Inserisci la sigla'" (change)="updateWitnessName($event, i)"> <br/> 
+      File: <span *ngIf="witnesses[i]">{{witnesses[i].name}}</span> <br/>
       <input type="file" (change)="updateWitness($event, i)">
       <button mat-button (click)="removeWitness(i)" title="Rimuovi testimone">
         <mat-icon>clear</mat-icon>
       </button>
-    </label>
-  </div>
+    </li>
+  </ol>
 </div>
 <h3>
   <button mat-button (click)="addWitness()">

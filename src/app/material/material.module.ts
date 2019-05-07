@@ -9,6 +9,8 @@ import {
 } from '@angular/material';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [],
@@ -19,6 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatButtonToggleModule,
     MatGridListModule,
     MatIconModule,
+    MatInputModule,
     MatMenuModule,
     MatTooltipModule
   ],
@@ -28,6 +31,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatButtonToggleModule,
     MatGridListModule,
     MatIconModule,
+    MatInputModule,
     MatMenuModule,
     MatTooltipModule
   ]

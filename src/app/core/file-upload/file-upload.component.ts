@@ -10,6 +10,7 @@ export class FileUploadComponent implements OnInit {
 
   baseText;
   witnesses = [];
+  witnessesNames = [];
 
   constructor(
     private upload: UploadService
@@ -19,10 +20,12 @@ export class FileUploadComponent implements OnInit {
 
   addWitness() {
     this.witnesses.push(null);
+    this.witnessesNames.push(null);
   }
 
   removeWitness(index) {
     this.witnesses.splice(index, 1);
+    this.witnessesNames.splice(index, 1);
   }
 
   updateBaseText(event) {
@@ -35,6 +38,14 @@ export class FileUploadComponent implements OnInit {
     let input: any = event.target;
     if (!input) return;
     this.witnesses[index] = input.files[0];
+    var sigla = input.files[0].name.substring(0, input.files[0].name.lastIndexOf('.'));
+    this.witnessesNames[index] = sigla;
+  }
+
+  updateWitnessName(event, index) {
+    let input: any = event.target;
+    if (!input) return;
+    this.witnessesNames[index] = input.value;
   }
 
   uploadFiles() {
