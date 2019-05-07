@@ -16,6 +16,7 @@ export class CollationComponent implements OnInit, OnDestroy {
   baseSubscription: Subscription;
   witSubscription: Subscription;
   namesSubscription: Subscription;
+  collatedText;
 
   constructor(
     private upload: UploadService,
@@ -47,7 +48,7 @@ export class CollationComponent implements OnInit, OnDestroy {
   }
 
   startCollation() {
-    this.collator.collate(this.baseText, this.witnesses, this.witnessesNames);
+    this.collatedText = this.collator.collate(this.baseText, this.witnesses, this.witnessesNames);
   }
 
 }

@@ -19,7 +19,7 @@ export class UploadService {
     this.witnesses = new BehaviorSubject([]);
     this.witnesses$ = this.witnesses.asObservable();
     this.witnessesNames = new BehaviorSubject([]);
-    this.witnessesNames$ = this.witnesses.asObservable();
+    this.witnessesNames$ = this.witnessesNames.asObservable();
   }
 
   getBaseText(): Observable<any> {
