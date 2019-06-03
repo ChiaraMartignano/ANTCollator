@@ -3,6 +3,7 @@ import { UploadService } from 'src/app/shared/upload.service';
 import { Subscription } from 'rxjs';
 import { CollatorService } from 'src/app/shared/collator.service';
 import { ModelService } from 'src/app/shared/model.service';
+import { SpinnerService } from 'src/app/shared/spinner.service';
 
 @Component({
   selector: 'app-collation',
@@ -23,7 +24,8 @@ export class CollationComponent implements OnInit, OnDestroy {
   constructor(
     private upload: UploadService,
     private collator: CollatorService,
-    private modelService: ModelService
+    private modelService: ModelService,
+    private spinner: SpinnerService
   ) { }
 
   ngOnInit() {
@@ -51,8 +53,10 @@ export class CollationComponent implements OnInit, OnDestroy {
   }
 
   startCollation() {
+    this.spinner.setSpinnerStatus(true);
     this.collatedText = this.collator.collate(this.baseText, this.witnesses, this.witnessesNames);
     this.model = this.modelService.getModel();
+    this.spinner.setSpinnerStatus(false);
   }
 
   copyToClipboard(text) {
