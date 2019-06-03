@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ModelService } from './model.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class UploadService {
   witnessesNames: BehaviorSubject<any>;
   witnessesNames$: Observable<any>;
 
-  constructor() {
+  constructor(
+    private model: ModelService
+  ) {
     this.baseText = new BehaviorSubject('');
     this.baseText$ = this.baseText.asObservable();
     this.witnesses = new BehaviorSubject([]);
@@ -44,6 +47,7 @@ export class UploadService {
 
   setNames(value) {
     this.witnessesNames.next(value);
+    this.model.updateWitnesses(value);
   }
 
   uploadBaseText(baseText) {

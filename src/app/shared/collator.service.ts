@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ModelService } from './model.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,9 @@ export class CollatorService {
   collatedText;
   variants = {};
 
-  constructor() {
+  constructor(
+    private model: ModelService
+  ) {
   }
 
   collate(baseText, witnesses, names) {
@@ -59,15 +62,15 @@ export class CollatorService {
         wits.forEach((wit) => {
           var rdg = textDom.createElement('rdg');
           rdg.setAttribute('source', '#' + wit);
-          rdg.setAttribute('xml:id', appId + 'rdg' + wit)
+          rdg.setAttribute('xml:id', appId + '-rdg-' + wit)
           var rdgContent = this.variants[n][wit].cloneNode(true);
           rdg.appendChild(rdgContent);
           appEntry.appendChild(rdg);
         });
+        this.model.createAppEntryModel(appId, wits);
         measure.parentNode.replaceChild(appEntry, measure);
       }
     });
-    console.log(textDom.documentElement.outerHTML)
     var schema = `<?xml version="1.0" encoding="UTF-8"?>
     <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
     <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>`;

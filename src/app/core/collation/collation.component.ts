@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UploadService } from 'src/app/shared/upload.service';
 import { Subscription } from 'rxjs';
 import { CollatorService } from 'src/app/shared/collator.service';
+import { ModelService } from 'src/app/shared/model.service';
 
 @Component({
   selector: 'app-collation',
@@ -17,10 +18,12 @@ export class CollationComponent implements OnInit, OnDestroy {
   witSubscription: Subscription;
   namesSubscription: Subscription;
   collatedText;
+  model;
 
   constructor(
     private upload: UploadService,
-    private collator: CollatorService
+    private collator: CollatorService,
+    private modelService: ModelService
   ) { }
 
   ngOnInit() {
@@ -49,6 +52,7 @@ export class CollationComponent implements OnInit, OnDestroy {
 
   startCollation() {
     this.collatedText = this.collator.collate(this.baseText, this.witnesses, this.witnessesNames);
+    this.model = this.modelService.getModel();
   }
 
 }
