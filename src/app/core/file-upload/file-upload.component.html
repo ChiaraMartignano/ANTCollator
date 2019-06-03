@@ -7,23 +7,21 @@
   <h3>
     Testimoni
   </h3>
+  Seleziona file <br>
+  <input type="file" multiple (change)="updateWitnesses($event)">
   <ol>
     <li *ngFor="let witness of witnesses; let i=index">
-      Sigla: <input matInput type="text" [value]="witnessesNames[i] || 'Inserisci la sigla'" (change)="updateWitnessName($event, i)"> <br/> 
-      File: <span *ngIf="witnesses[i]">{{witnesses[i].name}}</span> <br/>
-      <input type="file" (change)="updateWitness($event, i)">
-      <button mat-button (click)="removeWitness(i)" title="Rimuovi testimone">
+      <p>
+        <b>Testimone {{i + 1}}</b> <br>
+        Sigla: <input matInput type="text" [value]="witnessesNames[i] || 'Inserisci la sigla'" (change)="updateWitnessName($event, i)"> <br/> 
+        File: <span *ngIf="witnesses[i]">{{witnesses[i].name}}</span>
+      </p>
+      <button class="remove" mat-icon-button (click)="removeWitness(i)" matTooltip="Rimuovi testimone">
         <mat-icon>clear</mat-icon>
       </button>
     </li>
   </ol>
 </div>
-<h3>
-  <button mat-button (click)="addWitness()">
-    <mat-icon>add</mat-icon>
-    Aggiungi testimone
-  </button>
-</h3>
 <div class="center">
   <button
     mat-button

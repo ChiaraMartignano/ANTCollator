@@ -2,3 +2,10 @@ div.center {
   text-align: center;
   margin-top: 30px;
 }
+li {
+  display: flex;
+  flex-direction: row;
+  > * {
+    flex: 1
+  }
+}

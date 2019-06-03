@@ -33,13 +33,22 @@ export class FileUploadComponent implements OnInit {
     if (!input) return;
     this.baseText = input.files[0];
   }
-
-  updateWitness(event, index) {
+  
+  updateWitnesses(event) {
     let input: any = event.target;
     if (!input) return;
-    this.witnesses[index] = input.files[0];
-    var sigla = input.files[0].name.substring(0, input.files[0].name.lastIndexOf('.'));
-    this.witnessesNames[index] = sigla;
+    this.witnesses = [];
+    let i = 0;
+    while (i < input.files.length) {
+      this.witnesses.push(input.files[i]);
+      i++;
+    }
+    this.witnesses.forEach((wit) => {
+      var sigla = wit.name.substring(0, wit.name.lastIndexOf('.'));
+      sigla = sigla.replace(' ', '');
+      this.witnessesNames.push(sigla);
+    });
+    console.log(this.witnesses, this.witnessesNames)
   }
 
   updateWitnessName(event, index) {
