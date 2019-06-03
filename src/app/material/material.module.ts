@@ -10,11 +10,13 @@ import {
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 @NgModule({
   declarations: [],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     DragDropModule,
     MatButtonModule,

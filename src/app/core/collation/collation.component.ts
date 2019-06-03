@@ -55,4 +55,17 @@ export class CollationComponent implements OnInit, OnDestroy {
     this.model = this.modelService.getModel();
   }
 
+  copyToClipboard(text) {
+    if (typeof text !== 'string') {
+      text = JSON.stringify(text);
+    }
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  }
+
 }

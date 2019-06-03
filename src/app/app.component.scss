@@ -19,6 +19,9 @@ header {
     margin: 0;
     padding: 30px;
     overflow: auto;
+    &.results {
+      padding: 0px;
+    }
   }
   .controls {
     background-color: #f5f5f5;
