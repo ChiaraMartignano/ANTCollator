@@ -49,18 +49,17 @@ export class CollatorService {
     measures.forEach((measure) => {
       var n = measure.getAttribute('n');
       if (measuresWithVariants.indexOf(n) >= 0) {
-        var appEntry = textDom.createElement('app'),
+        var appEntry = textDom.createElementNS('http://www.music-encoding.org/ns/mei', 'app'),
             wits = Object.keys(this.variants[n]);
-        appEntry.setAttribute('xmlns', 'http://www.music-encoding.org/ns/mei');
         var appId = 'm' + n + '-app';
         appEntry.setAttribute('xml:id', appId);
-        var lem = textDom.createElement('lem');
+        var lem = textDom.createElementNS('http://www.music-encoding.org/ns/mei', 'lem');
         lem.setAttribute('xml:id', appId + '-lem');
         var lemContent = measure.cloneNode(true);
         lem.appendChild(lemContent);
         appEntry.appendChild(lem);
         wits.forEach((wit) => {
-          var rdg = textDom.createElement('rdg');
+          var rdg = textDom.createElementNS('http://www.music-encoding.org/ns/mei', 'rdg');
           rdg.setAttribute('source', '#' + wit);
           rdg.setAttribute('xml:id', appId + '-rdg-' + wit)
           var rdgContent = this.variants[n][wit].cloneNode(true);
