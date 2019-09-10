@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ModelService } from './model.service';
 
 @Injectable({
@@ -6,18 +7,31 @@ import { ModelService } from './model.service';
 })
 export class CollatorService {
 
-  collatedText;
+  textToCollate;
+  collatedText: BehaviorSubject<any>;
+  collatedText$: Observable<any>;
   variants = {};
 
   constructor(
     private model: ModelService
   ) {
+    this.collatedText = new BehaviorSubject('');
+    this.collatedText$ = this.collatedText.asObservable();
+  }
+
+  getCollatedText(): Observable<any> {
+    return this.collatedText$;
+  }
+
+  setCollatedText(value) {
+    this.collatedText.next(value);
   }
 
   collate(baseText, witnesses, names) {
-    this.collatedText = baseText.substring(0, baseText.length - 1);
+    this.textToCollate = baseText.substring(0, baseText.length - 1);
     this.findVariants(witnesses, names);
-    return this.createAppEntries();
+    var text = this.createAppEntries();
+    this.setCollatedText(text);
   }
 
   findVariants(wits, names) {
@@ -43,7 +57,7 @@ export class CollatorService {
 
   createAppEntries() {
     var parser = new DOMParser(),
-        textDom: any = parser.parseFromString(this.collatedText, 'text/xml'),
+        textDom: any = parser.parseFromString(this.textToCollate, 'text/xml'),
         measures = textDom.querySelectorAll('measure'),
         measuresWithVariants = Object.keys(this.variants);
     measures.forEach((measure) => {

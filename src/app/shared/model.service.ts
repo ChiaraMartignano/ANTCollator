@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { RenderFlags } from '@angular/compiler/src/core';
 
 export interface Model {
   baseText: string,
