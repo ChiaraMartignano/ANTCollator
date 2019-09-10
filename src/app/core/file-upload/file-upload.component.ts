@@ -48,7 +48,6 @@ export class FileUploadComponent implements OnInit {
       sigla = sigla.replace(' ', '');
       this.witnessesNames.push(sigla);
     });
-    console.log(this.witnesses, this.witnessesNames)
   }
 
   updateWitnessName(event, index) {
@@ -58,9 +57,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadFiles() {
-    this.upload.uploadBaseText(this.baseText);
-    this.upload.uploadWitnesses(this.witnesses);
-    this.upload.setNames(this.witnessesNames);
+    this.upload.uploadFiles(this.baseText, this.witnesses, this.witnessesNames);
   }
 
 }

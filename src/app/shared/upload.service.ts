@@ -13,6 +13,8 @@ export class UploadService {
   witnesses$: Observable<any>;
   witnessesNames: BehaviorSubject<any>;
   witnessesNames$: Observable<any>;
+  filesUploaded: BehaviorSubject<boolean>;
+  filesUploaded$: Observable<boolean>
 
   constructor(
     private model: ModelService
@@ -23,6 +25,8 @@ export class UploadService {
     this.witnesses$ = this.witnesses.asObservable();
     this.witnessesNames = new BehaviorSubject([]);
     this.witnessesNames$ = this.witnessesNames.asObservable();
+    this.filesUploaded = new BehaviorSubject(false);
+    this.filesUploaded$ = this.filesUploaded.asObservable();
   }
 
   getBaseText(): Observable<any> {
@@ -50,6 +54,14 @@ export class UploadService {
     this.model.updateWitnesses(value);
   }
 
+  getFilesUploaded() {
+    return this.filesUploaded$;
+  }
+
+  setFilesUploaded(bool) {
+    this.filesUploaded.next(bool);
+  }
+
   uploadBaseText(baseText) {
     let reader = new FileReader();
     reader.onload = () => {
@@ -69,4 +81,11 @@ export class UploadService {
     });
     this.setWitnesses(witnessesTexts);
   }
+
+  uploadFiles(baseText, witnesses, names) {
+    this.uploadBaseText(baseText);
+    this.uploadWitnesses(witnesses);
+    this.setNames(names);
+    this.setFilesUploaded(true);
+  } 
 }
