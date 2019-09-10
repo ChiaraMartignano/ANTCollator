@@ -1,21 +1,13 @@
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step label="Carica i file" [completed]="isUploadComplete">
     <app-file-upload></app-file-upload>
-    <div>
-      <button mat-button matStepperNext>Next</button>
-    </div>
   </mat-step>
   <mat-step label="Collaziona" [completed]="isCollationComplete">
-    <app-collation-start></app-collation-start>      
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
-    </div>
+    <app-collation-start></app-collation-start>
   </mat-step>
   <mat-step label="Aggiungi note d'apparato" [optional]="true">
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
+  </mat-step>
+  <mat-step label="Salva i file">
+    <app-collation></app-collation>
   </mat-step>
 </mat-horizontal-stepper>

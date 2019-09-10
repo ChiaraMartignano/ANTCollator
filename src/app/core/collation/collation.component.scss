@@ -7,7 +7,12 @@ header {
   text-align: center;
 }
 
+#mainContainer {
+  display: flex;
+  flex-direction: row;
+}
 .container {
+  flex: 1;
   > .smallHeader {
     max-height: 20%;
     background-color: #7e7e7eb4;
@@ -15,12 +20,16 @@ header {
     color: #ffffff;
     text-align: center;
   }
-  height: 42%;
   padding: 0;
-  margin: 0;
   > div.doc {
+    height: 60vh;
     overflow-y: auto;
-    height: 80%;
     padding: 15px;
+  }
+  &:first-of-type {
+    margin-right: 10px;
+  }
+  &:last-of-type {
+    margin-left: 10px;
   }
 }

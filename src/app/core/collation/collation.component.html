@@ -1,25 +1,28 @@
-<div *ngIf="collatedText" class="container">
-  <div class="smallHeader">
-    File MEI
-    <button
-      mat-icon-button
-      matTooltip="Copia negli appunti"
-      (click)="copyToClipboard(collatedText)">
-      <mat-icon>file_copy</mat-icon>
-    </button>
+<div id="mainContainer">
+  <div *ngIf="collatedText" class="container">
+    <div class="smallHeader">
+      File MEI
+      <button
+        mat-icon-button
+        matTooltip="Copia negli appunti"
+        (click)="copyToClipboard(collatedText)">
+        <mat-icon>file_copy</mat-icon>
+      </button>
+    </div>
+    <app-spinner></app-spinner>
+    <div class="doc" id="collatedText">{{collatedText}}</div>
   </div>
-  <app-spinner></app-spinner>
-  <div class="doc" id="collatedText">{{collatedText}}</div>
+  <div *ngIf="model" class="container">
+    <div class="smallHeader">
+      Modello
+      <button
+        mat-icon-button
+        matTooltip="Copia negli appunti"
+        (click)="copyToClipboard(model)">
+        <mat-icon>file_copy</mat-icon>
+      </button>
+    </div>
+    <div class="doc" id="model">{{model | json}}</div>
+  </div>  
 </div>
-<div *ngIf="model" class="container">
-  <div class="smallHeader">
-    Modello
-    <button
-      mat-icon-button
-      matTooltip="Copia negli appunti"
-      (click)="copyToClipboard(model)">
-      <mat-icon>file_copy</mat-icon>
-    </button>
-  </div>
-  <div class="doc" id="model">{{model | json}}</div>
-</div>
+
