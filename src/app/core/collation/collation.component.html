@@ -1,11 +1,3 @@
-<header *ngIf="baseText && witnesses.length > 0">
-  <button
-    mat-button
-    (click)="startCollation()">
-    <h3 *ngIf="!collatedText || !model">Avvia collazione</h3>
-    <h3 *ngIf="collatedText && model">Riavvia collazione</h3>
-  </button>
-</header>
 <div *ngIf="collatedText" class="container">
   <div class="smallHeader">
     File MEI

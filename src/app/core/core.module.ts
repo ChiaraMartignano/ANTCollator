@@ -4,10 +4,19 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { CollationComponent } from './collation/collation.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
+import { CollationStartComponent } from './collation-start/collation-start.component';
 
 @NgModule({
-  declarations: [FileUploadComponent, CollationComponent],
-  exports: [FileUploadComponent, CollationComponent],
+  declarations: [
+    FileUploadComponent,
+    CollationComponent,
+    CollationStartComponent,
+  ],
+  exports: [
+    FileUploadComponent,
+    CollationComponent,
+    CollationStartComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
