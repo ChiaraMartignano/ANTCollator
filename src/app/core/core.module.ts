@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { CollationStartComponent } from './collation-start/collation-start.component';
 import { WizardComponent } from './wizard/wizard.component';
+import { EditorModule } from '../editor/editor.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { WizardComponent } from './wizard/wizard.component';
   ],
   imports: [
     CommonModule,
+    EditorModule,
     SharedModule,
     MaterialModule
   ]

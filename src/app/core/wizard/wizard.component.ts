@@ -10,7 +10,7 @@ import { CollatorService } from 'src/app/shared/collator.service';
 })
 export class WizardComponent implements OnInit, OnDestroy {
 
-  isLinear = true;
+  isLinear = false;
   uploadSubscription: Subscription;
   isUploadComplete = false;
   collationSubscription: Subscription;
