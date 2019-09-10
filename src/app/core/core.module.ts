@@ -5,17 +5,20 @@ import { CollationComponent } from './collation/collation.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { CollationStartComponent } from './collation-start/collation-start.component';
+import { WizardComponent } from './wizard/wizard.component';
 
 @NgModule({
   declarations: [
     FileUploadComponent,
     CollationComponent,
     CollationStartComponent,
+    WizardComponent,
   ],
   exports: [
     FileUploadComponent,
     CollationComponent,
     CollationStartComponent,
+    WizardComponent
   ],
   imports: [
     CommonModule,
