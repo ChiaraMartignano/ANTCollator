@@ -7,6 +7,8 @@ import {
   MatIconModule,
   MatMenuModule
 } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +24,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatDialogModule,
+    MatExpansionModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -32,6 +36,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatDialogModule,
+    MatExpansionModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
