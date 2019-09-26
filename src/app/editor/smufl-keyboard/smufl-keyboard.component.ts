@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import GLYPHNAMES from './smufl_glyphnames.js';
+import RANGES from './smufl_ranges.js'
+
 @Component({
   selector: 'app-smufl-keyboard',
   templateUrl: './smufl-keyboard.component.html',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SmuflKeyboardComponent implements OnInit {
 
+  ranges = RANGES;
+  glyphnames = GLYPHNAMES;
+  rangesArray = Object.keys(RANGES);
+  currentRange = RANGES['medievalAndRenaissanceIndividualNotes'];
+  currentRangeIndex = this.rangesArray.indexOf('medievalAndRenaissanceIndividualNotes');
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setGlyph(codepoint) {
+    return String.fromCodePoint(Number.parseInt('0x' + codepoint.slice(2)));
+  }
+
+  changeRange(direction) {
+    if (this.currentRangeIndex === 0 || this.currentRangeIndex === this.rangesArray.length - 1) {
+      return;
+    }
+    this.currentRangeIndex = direction === 'next' ? this.currentRangeIndex + 1 : this.currentRangeIndex - 1;
+    this.currentRange = this.ranges[this.rangesArray[this.currentRangeIndex]];
   }
 
 }

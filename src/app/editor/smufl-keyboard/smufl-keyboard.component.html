@@ -4,5 +4,29 @@
         Tastiera per caratteri SMUFL 
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+    <div>
+      <button
+        mat-icon-button
+        [disabled]="currentRangeIndex === 0"
+        (click)="changeRange('back')">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span>{{currentRange.description}}</span>
+      <button
+        mat-icon-button
+        [disabled]="currentRangeIndex === rangesArray.length - 1"
+        (click)="changeRange('next')">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div>
+      <span *ngFor="let glyph of currentRange.glyphs">
+        <button
+          class="smuflKey"
+          mat-button
+          matTooltip="{{glyphnames[glyph].description}}">
+          {{setGlyph(glyphnames[glyph].codepoint)}}
+        </button>
+      </span>
+    </div>
   </mat-expansion-panel>
