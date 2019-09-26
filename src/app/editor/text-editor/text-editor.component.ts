@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import SMUFLEditor from '../../../ckeditor5-build-smufl/ckeditor.js';
 
 @Component({
   selector: 'app-text-editor',
@@ -8,14 +8,18 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class TextEditorComponent implements OnInit, AfterViewInit {
 
+  editor;
+
   constructor() { }
 
   ngOnInit() {  }
   
   ngAfterViewInit() {
-    ClassicEditor.create(document.querySelector('#editor'))
+    SMUFLEditor.create(document.querySelector('#editor'))
     .then( editor => {
       console.log( editor );
+      this.editor = editor;
+      // this.editor.execute('smuflchar', { value: 'U+E950'})
     } )
     .catch( error => {
       console.error( error );
