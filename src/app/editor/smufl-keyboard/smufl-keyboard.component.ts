@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import GLYPHNAMES from './smufl_glyphnames.js';
 import RANGES from './smufl_ranges.js'
@@ -9,6 +9,8 @@ import RANGES from './smufl_ranges.js'
   styleUrls: ['./smufl-keyboard.component.scss']
 })
 export class SmuflKeyboardComponent implements OnInit {
+
+  @Input() editor;
 
   ranges = RANGES;
   glyphnames = GLYPHNAMES;
@@ -31,6 +33,10 @@ export class SmuflKeyboardComponent implements OnInit {
     }
     this.currentRangeIndex = direction === 'next' ? this.currentRangeIndex + 1 : this.currentRangeIndex - 1;
     this.currentRange = this.ranges[this.rangesArray[this.currentRangeIndex]];
+  }
+
+  selectChar(codepoint) {
+    this.editor.execute('smuflchar', { value: codepoint });
   }
 
 }

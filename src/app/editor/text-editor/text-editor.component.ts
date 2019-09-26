@@ -19,7 +19,6 @@ export class TextEditorComponent implements OnInit, AfterViewInit {
     .then( editor => {
       console.log( editor );
       this.editor = editor;
-      // this.editor.execute('smuflchar', { value: 'U+E950'})
     } )
     .catch( error => {
       console.error( error );
