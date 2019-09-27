@@ -4,6 +4,9 @@ export interface Model {
   baseText: string,
   witnesses: string[],
   appEntries: {
+    _indexes: string[],
+  }
+  notes: {
     _indexes: string[]
   }
 }
@@ -15,6 +18,7 @@ export interface AppEntry {
     _indexes: string[],
     _wits: string[]
   }
+  _hasNote: boolean
 }
 
 export interface Rdg {
@@ -32,6 +36,9 @@ export class ModelService {
     witnesses: [],
     appEntries: {
       _indexes: [],
+    },
+    notes: {
+      _indexes: []
     }
   }
 
@@ -58,7 +65,8 @@ export class ModelService {
       rdgs: {
         _indexes: [],
         _wits: wits
-      }
+      },
+      _hasNote: false
     };
     wits.forEach((wit) => {
       var rdg: Rdg = {
@@ -70,4 +78,20 @@ export class ModelService {
     });
     this.addAppEntry(entry);
   }
+
+  saveNotes(notes) {
+    this.model.notes = { _indexes: [] };
+    for (var note in notes) {
+      this.addNote(note);
+    }
+  }
+  
+  addNote(note) {
+    this.model.notes[note.measure] = note;
+    this.model.notes._indexes.push(note.measure);
+    if (this.model.appEntries._indexes.indexOf(note.measure) >= 0) {
+      this.model.appEntries[note.measure]._hasNote = true;
+    }
+  }
+
 }
