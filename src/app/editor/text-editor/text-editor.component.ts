@@ -20,7 +20,7 @@ export class TextEditorComponent implements OnInit, AfterViewInit {
   
   ngAfterViewInit() {
     SMUFLEditor.create(document.querySelector('#editor'), {
-      // initialData: this.currentNote.text
+      initialData: this.currentNote.text
     })
     .then( editor => {
       console.log( editor );
