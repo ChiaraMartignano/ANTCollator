@@ -1,5 +1,32 @@
 <!-- add new note -->
+<button
+  mat-button
+  (click)="addNote()">
+  Aggiungi nota
+</button>
 <!-- save notes -->
+<button
+  mat-button
+  (click)="saveAllNotes()">
+  Salva tutte le note
+</button>
 <!-- array of inserted notes -->
+<div *ngFor="let note of notes">
+  <span>{{note.measure || 'Misura della nota'}}</span>
+  <span innerHTML="{{note.text || 'Testo della nota'}}"></span>
+  <button
+    mat-icon-button
+    (click)="editNote(note)">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    (click)="removeNote(note)">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <!-- each note can be edited or removed -->
-<app-text-editor></app-text-editor>
+<app-text-editor
+  *ngIf="currentlyEditedNote"
+  [currentNote]="currentlyEditedNote"
+  (changesSaved)="onSaveNoteChanges()"></app-text-editor>

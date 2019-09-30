@@ -4,6 +4,7 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 import { NotesComponent } from './notes/notes.component';
 import { SmuflKeyboardComponent } from './smufl-keyboard/smufl-keyboard.component';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MaterialModule } from '../material/material.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule
   ]
 })

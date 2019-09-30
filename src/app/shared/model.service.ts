@@ -26,6 +26,11 @@ export interface Rdg {
   wit: string
 }
 
+export interface Note {
+  measure: string,
+  text: string
+}
+
 @Injectable({
   providedIn: 'root'
 })

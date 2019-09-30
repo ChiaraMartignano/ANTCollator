@@ -1,8 +1,8 @@
 <!-- measure number -->
 <mat-form-field class="example-full-width">
-  <input matInput placeholder="Inserisci numero della misura" value="">
+  <input [(ngModel)]="currentNote.measure" matInput placeholder="Inserisci numero della misura" value="">
 </mat-form-field>
 <div id="editor"></div>
 <app-smufl-keyboard [editor]="editor"></app-smufl-keyboard>
 <!-- save and reset -->
-<button mat-button>Salva modifiche</button>
+<button mat-button (click)="saveNote()">Salva modifiche</button>
