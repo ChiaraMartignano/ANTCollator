@@ -86,16 +86,17 @@ export class ModelService {
 
   saveNotes(notes) {
     this.model.notes = { _indexes: [] };
-    for (var note in notes) {
-      this.addNote(note);
+    for (var i = 0; i <  notes.length; i++) {
+      this.addNote(notes[i]);
     }
   }
   
   addNote(note) {
-    this.model.notes[note.measure] = note;
-    this.model.notes._indexes.push(note.measure);
-    if (this.model.appEntries._indexes.indexOf(note.measure) >= 0) {
-      this.model.appEntries[note.measure]._hasNote = true;
+    var measure = "m" + note.measure.trim() + '-app';
+    this.model.notes[measure] = note;
+    this.model.notes._indexes.push(measure);
+    if (this.model.appEntries._indexes.indexOf(measure) >= 0) {
+      this.model.appEntries[measure]._hasNote = true;
     }
   }
 

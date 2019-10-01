@@ -33,10 +33,7 @@ export class TextEditorComponent implements OnInit, AfterViewInit {
 
   saveNote() {
     this.currentNote.text = this.editor.getData();
-    console.log(this.currentNote)
     this.changesSaved.emit(true);
   }
-
-  // reset editor after save
 
 }
