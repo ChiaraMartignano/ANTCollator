@@ -39,11 +39,11 @@ export class NotesComponent implements OnInit {
 
   onSaveNoteChanges() {
     this.currentlyEditedNote = null;
-    console.log(this.currentlyEditedNote);
   }
 
   saveAllNotes() {
-    console.log('save notes');
+    this.model.saveNotes(this.notes);
+    this.collator.saveNotes(this.notes);
   }
 
 }
