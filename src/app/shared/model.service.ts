@@ -28,7 +28,8 @@ export interface Rdg {
 
 export interface Note {
   measure: string,
-  text: string
+  text: string,
+  tei?: string
 }
 
 @Injectable({

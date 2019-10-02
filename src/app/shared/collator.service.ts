@@ -93,11 +93,12 @@ export class CollatorService {
   }
 
   createNotesContainer(textDom) {
-    var notesDiv = textDom.querySelector('div[type=\'notes\']');
+    var notesDiv = textDom.querySelector('div[type=\'notes\']'),
+      list;
     if (!notesDiv) {
       notesDiv = textDom.createElementNS(this.ns, 'div');
       notesDiv.setAttribute('type', 'notes');
-      var list = textDom.createElementNS(this.ns, 'list');
+      list = textDom.createElementNS(this.ns, 'list');
       var head = textDom.createElementNS(this.ns, 'head');
       var headText = textDom.createTextNode('Note d\'apparato');
       head.appendChild(headText);
@@ -106,25 +107,67 @@ export class CollatorService {
       var mdivs = textDom.querySelectorAll('mdiv');
       var mdiv = mdivs[mdivs.length - 1];
       mdiv.parentNode.appendChild(notesDiv);
+    } else {
+      list = notesDiv.querySelector('list');
+      for (var i = list.children.length - 1; i > 0; i--) {
+        list.removeChild(list.children[i]);
+      }
+    }
+    return list;
+  }
+  
+  addNotes(notes, list, dom) {
+    for (var i = 0; i < notes.length; i++) {
+      var item = dom.createElementNS(this.ns, 'item');
+      var num = dom.createElementNS(this.ns, 'num');
+      num.setAttribute('corresp', 'm' + notes[i].measure + '-app');
+      var number = dom.createTextNode(notes[i].measure);
+      num.appendChild(number);
+      item.appendChild(num);
+      if (!notes[i].tei) {
+        notes[i].tei = this.createTEIText(notes[i], dom);
+      }
+      item.appendChild(notes[i].tei);
+      list.appendChild(item);
     }
   }
 
-  createTEIText(notes) {
+  createTEIText(note, teiDom) {
     var parser = new DOMParser();
-    for (var i = 0; i < notes.length; i++) {
-      var htmlText = notes[i].text;
-      htmlText = htmlText.replace('&nbsp;', ' ');
-      var htmlDom = parser.parseFromString(htmlText, 'text/html');
+    var htmlText = note.text.replace('&nbsp;', ' ');
+    var htmlDom = parser.parseFromString(htmlText, 'text/html');
+    var body = htmlDom.querySelector('body');
+    var teiElem = this.createTEINode(body, teiDom);
+    return teiElem;
+  }
+
+  createTEINode(elem, dom) {
+    var node = this.convertElements(elem, dom);
+    if (node.tagName.toLowerCase() !== 'symbol') {
+      for (var i = 0; i < elem.childNodes.length; i++) {
+        var child;
+        if (elem.childNodes[i].nodeType === 3) {
+          child = dom.createTextNode(elem.childNodes[i].textContent)
+        } else if (elem.childNodes[i].nodeType === 1) {
+          child = this.createTEINode(elem.childNodes[i], dom);
+        }
+        if (child) { node.appendChild(child); }
+      }
     }
+    return node;
   }
 
   convertElements(elem, dom) {
     var newElem;
-    switch(elem.tagName) {
+    switch(elem.tagName.toLowerCase()) {
+      case 'body': {
+        newElem = dom.createElementNS(this.ns, 'p');
+      } break;
       case 'span': {
         if (elem.getAttribute('class') === 'smuflchar') {
           newElem = dom.createElementNS(this.ns, 'symbol');
-          newElem.setAttribute('glyph.num', elem.textContent);
+          var num = elem.textContent.codePointAt(0).toString(16);
+          newElem.setAttribute('glyph.num', 'U+' + num);
         }
       } break;
       case 'ul': case 'ol': {
@@ -135,38 +178,24 @@ export class CollatorService {
       case 'li': {
         newElem = dom.createElementNS(this.ns, 'item');
       } break;
-      case 'i': case 'strong': case 'u': {
+      case 'i': case 'strong': case 'u': case 'sub': case 'sup': {
         newElem = dom.createElementNS(this.ns, 'hi');
-        var rend = 'underline';
-        switch (elem.tagName) {
-          case 'i': rend = 'italic'; break;
-          case 'strong': rend = 'bold'; break;
-          default: rend = 'underline';
-        }
-        newElem.setAttribute('rend', rend);
+        newElem.setAttribute('rend', elem.tagName.toLowerCase());
       } break;
       case 'a': {
         newElem = dom.createElementNS(this.ns, 'ref');
         newElem.setAttribute('target', elem.getAttribute('href'));
       } break;
-      default: newElem = elem;
+      default: newElem = dom.createElementNS(this.ns, elem.tagName.toLowerCase());
     }
-    if (elem.tagName !== 'span') {
-      var content = dom.createTextNode(elem.innerHTML);
-      newElem.appendChild(content);
-    }
-  }
-
-  addNotes(notes, text) {
-
+    return newElem;
   }
 
   saveNotes(notes) {
     var parser = new DOMParser(),
         textDom: any = parser.parseFromString(this.text, 'text/xml');
-    this.createNotesContainer(textDom);
-    this.createTEIText(notes);
-    this.addNotes(notes, textDom);
+    var list = this.createNotesContainer(textDom);
+    this.addNotes(notes, list, textDom);
     this.text = textDom.documentElement.outerHTML
     this.setCollatedText(this.text);
   }
