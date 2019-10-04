@@ -7,7 +7,6 @@ export interface encodingInfo {
   composer: string,
   editor: string,
   lyricist: string,
-  resp: string,
   sources: string[]
 }
 

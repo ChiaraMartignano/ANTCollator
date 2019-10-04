@@ -8,6 +8,7 @@ import { CollationStartComponent } from './collation-start/collation-start.compo
 import { WizardComponent } from './wizard/wizard.component';
 import { EditorModule } from '../editor/editor.module';
 import { MetadataComponent } from './metadata/metadata.component';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MetadataComponent } from './metadata/metadata.component';
   imports: [
     CommonModule,
     EditorModule,
+    FormsModule,
     SharedModule,
     MaterialModule
   ]

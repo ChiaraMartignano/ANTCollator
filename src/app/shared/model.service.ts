@@ -53,7 +53,6 @@ export class ModelService {
       composer: '',
       editor: '',
       lyricist: '',
-      resp: '',
       sources: []
     }
   }

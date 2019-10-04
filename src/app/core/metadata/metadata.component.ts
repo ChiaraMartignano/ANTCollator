@@ -9,7 +9,13 @@ import { ModelService } from 'src/app/shared/model.service';
 })
 export class MetadataComponent implements OnInit {
 
-  metadata: encodingInfo;
+  metadata: encodingInfo = {
+    title: '',
+    composer: '',
+    lyricist: '',
+    editor: '',
+    sources: []
+  };
 
   constructor(
     private collator: CollatorService,
@@ -19,7 +25,7 @@ export class MetadataComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveData() {
+  saveMetadata() {
     this.collator.addMetadata(this.metadata);
     this.model.addMetadata(this.metadata);
   }

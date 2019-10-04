@@ -1,3 +1,18 @@
-<p>
-  metadata works!
-</p>
+<button
+  mat-button
+  (click)='saveMetadata()'>Salva metadati</button>
+<form>
+  <mat-form-field>
+    <input matInput placeholder="Titolo" [(ngModel)]="metadata.title">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Compositore" [(ngModel)]="metadata.composer">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Autore dei testi" [(ngModel)]="metadata.lyricist">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Editore" [(ngModel)]="metadata.editor">
+  </mat-form-field>
+  <!-- Aggiungi campi per sources sulla base dei file inseriti -->
+</form>
