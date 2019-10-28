@@ -1,3 +1,11 @@
+<div class="center">
+  <button
+    mat-button
+    [disabled]="!baseText || witnesses.length < 1 || (witnesses.length > 0 && !witnesses[0])"
+    (click)="uploadFiles()">
+    <h3>Carica file</h3>
+  </button>
+</div>
 <div>
   <h3>Testo base per la collazione</h3>
   File: <span *ngIf="baseText">{{baseText.name}}</span> <br/>
@@ -21,12 +29,4 @@
       </button>
     </li>
   </ol>
-</div>
-<div class="center">
-  <button
-    mat-button
-    [disabled]="!baseText || witnesses.length < 1 || (witnesses.length > 0 && !witnesses[0])"
-    (click)="uploadFiles()">
-    <h3>Carica file</h3>
-  </button>
 </div>

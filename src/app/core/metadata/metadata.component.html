@@ -3,16 +3,18 @@
   (click)='saveMetadata()'>Salva metadati</button>
 <form>
   <mat-form-field>
-    <input matInput placeholder="Titolo" [(ngModel)]="metadata.title">
+    <input matInput placeholder="Titolo" [(ngModel)]="metadata.title" [ngModelOptions]="{standalone: true}">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Compositore" [(ngModel)]="metadata.composer">
+    <input matInput placeholder="Compositore" [(ngModel)]="metadata.composer" [ngModelOptions]="{standalone: true}">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Autore dei testi" [(ngModel)]="metadata.lyricist">
+    <input matInput placeholder="Autore dei testi" [(ngModel)]="metadata.lyricist" [ngModelOptions]="{standalone: true}">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Editore" [(ngModel)]="metadata.editor">
+    <input matInput placeholder="Editore" [(ngModel)]="metadata.editor" [ngModelOptions]="{standalone: true}">
   </mat-form-field>
-  <!-- Aggiungi campi per sources sulla base dei file inseriti -->
+  <mat-form-field *ngFor="let wit of witnesses">
+    <textarea matInput placeholder="Riferimento bibliografico per il testimone {{wit}}" (change)="addBibl(wit, $event)"></textarea>
+  </mat-form-field>
 </form>

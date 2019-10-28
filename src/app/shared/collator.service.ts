@@ -283,7 +283,7 @@ export class CollatorService {
     var parser = new DOMParser(),
         textDom = parser.parseFromString(this.text, 'text/xml'),
         fileDesc = textDom.querySelector('fileDesc');
-    this.updateFileDescData(fileDesc, data, textDom);
+    this.updateFileDescData(data, fileDesc, textDom);
     var encodingDesc = textDom.querySelector('encodingDesc');
     this.updateEncodingDescData(encodingDesc, textDom);
     this.text = textDom.documentElement.outerHTML;
