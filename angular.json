@@ -17,20 +17,20 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ANTCollator",
+            "outputPath": "build",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/icon_squared.ico",
+              "src/ANTicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -89,8 +89,7 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/icon_squared.ico",
+              "src/ANTicon.ico",
               "src/assets"
             ]
           }
