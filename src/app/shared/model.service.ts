@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
+import { encodingInfo } from '../shared/collator.service';
 
 export interface Model {
   baseText: string,
   witnesses: string[],
   appEntries: {
     _indexes: string[],
-  }
+  },
   notes: {
     _indexes: string[]
-  }
+  },
+  encodingInfo: encodingInfo
 }
 
 export interface AppEntry {
@@ -45,6 +47,13 @@ export class ModelService {
     },
     notes: {
       _indexes: []
+    },
+    encodingInfo: {
+      title: '',
+      composer: '',
+      editor: '',
+      lyricist: '',
+      sources: []
     }
   }
 
@@ -99,6 +108,10 @@ export class ModelService {
     if (this.model.appEntries._indexes.indexOf(measure) >= 0) {
       this.model.appEntries[measure]._hasNote = true;
     }
+  }
+
+  addMetadata(data: encodingInfo) {
+    this.model.encodingInfo = data;
   }
 
 }

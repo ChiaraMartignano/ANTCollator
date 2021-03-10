@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ModelService } from './model.service';
 
+export interface encodingInfo {
+  title: string,
+  composer: string,
+  editor: string,
+  lyricist: string,
+  sources: string[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -197,6 +205,88 @@ export class CollatorService {
     var list = this.createNotesContainer(textDom);
     this.addNotes(notes, list, textDom);
     this.text = textDom.documentElement.outerHTML
+    this.setCollatedText(this.text);
+  }
+
+  updateFileDescData(data, elem, dom) {
+    // TITLESTMT
+    var titleStmt = elem.querySelector('titleStmt'),
+        title = titleStmt.querySelector('title'),
+        titleContent = dom.createTextNode(data.title);
+    title.textContent = '';
+    title.appendChild(titleContent);
+    var composer = dom.createElementNS(this.ns, 'composer'),
+        composerContent = dom.createTextNode(data.composer);
+    composer.appendChild(composerContent);
+    var lyricist = dom.createElementNS(this.ns, 'lyricist'),
+        lyricistContent = dom.createTextNode(data.lyricist);
+    lyricist.appendChild(lyricistContent);
+    titleStmt.appendChild(composer);
+    titleStmt.appendChild(lyricist);
+    var editor = dom.createElementNS(this.ns, 'persName'),
+        editorContent = dom.createTextNode(data.editor);
+    editor.appendChild(editorContent);
+    var corp = dom.createElementNS(this.ns, 'corpName'),
+        corpContent = dom.createTextNode('European ArsNova Project');
+    corp.appendChild(corpContent);
+    var resp1 = dom.createElementNS(this.ns, 'resp'),
+        resp1Content = dom.createTextNode('Edited by ');
+    resp1.appendChild(resp1Content);
+    var resp2 = dom.createElementNS(this.ns, 'resp'),
+        resp2Content = dom.createTextNode(' within the ');
+    resp2.appendChild(resp2Content);
+    var respStmt = dom.createElementNS(this.ns, 'respStmt');
+    respStmt.appendChild(resp1);
+    respStmt.appendChild(editor);
+    respStmt.appendChild(resp2);
+    respStmt.appendChild(corp);
+    titleStmt.appendChild(respStmt);
+
+    // SOURCEDESC
+    var sourceDesc = dom.createElementNS(this.ns, 'sourceDesc');
+    for (var i = 0; i < data.sources.length; i++) {
+      var source = dom.createElementNS(this.ns, 'source'),
+          bibl = dom.createElementNS(this.ns, 'bibl'),
+          biblContent = dom.createTextNode(data.sources[i]);
+      bibl.appendChild(biblContent);
+      source.appendChild(bibl);
+      sourceDesc.appendChild(source);
+    }
+    elem.appendChild(sourceDesc);
+
+    // PUBSTMT
+    var pubStmt = dom.createElementNS(this.ns, 'pubStmt'),
+        availability = dom.createElementNS(this.ns, 'availability'),
+        useRestrict = dom.createElementNS(this.ns, 'useRestrict'),
+        content = dom.createTextNode('Available for purpose of academic research and teaching only.');
+    useRestrict.appendChild(content);
+    availability.appendChild(useRestrict);
+    pubStmt.appendChild(availability);
+    elem.appendChild(pubStmt);
+  }
+
+  updateEncodingDescData(elem, dom) {
+    var appInfo = elem.querySelector('appInfo'),
+        application = dom.createElementNS(this.ns, 'application'),
+        name = dom.createElementNS(this.ns, 'name'),
+        nameContent = dom.createTextNode('ANTCollator');
+    name.appendChild(nameContent);
+    var p = dom.createElementNS(this.ns, 'p'),
+        pContent = dom.createTextNode('The text was automatically collated by the ANTCollator software, an original product of the European ArsNova Project.');
+    p.appendChild(pContent);
+    application.appendChild(name);
+    application.appendChild(p);
+    appInfo.appendChild(application);
+  }
+
+  addMetadata(data: encodingInfo) {
+    var parser = new DOMParser(),
+        textDom = parser.parseFromString(this.text, 'text/xml'),
+        fileDesc = textDom.querySelector('fileDesc');
+    this.updateFileDescData(data, fileDesc, textDom);
+    var encodingDesc = textDom.querySelector('encodingDesc');
+    this.updateEncodingDescData(encodingDesc, textDom);
+    this.text = textDom.documentElement.outerHTML;
     this.setCollatedText(this.text);
   }
 }

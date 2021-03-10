@@ -7,6 +7,8 @@ import { MaterialModule } from '../material/material.module';
 import { CollationStartComponent } from './collation-start/collation-start.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { EditorModule } from '../editor/editor.module';
+import { MetadataComponent } from './metadata/metadata.component';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,7 @@ import { EditorModule } from '../editor/editor.module';
     CollationComponent,
     CollationStartComponent,
     WizardComponent,
+    MetadataComponent,
   ],
   exports: [
     FileUploadComponent,
@@ -24,6 +27,7 @@ import { EditorModule } from '../editor/editor.module';
   imports: [
     CommonModule,
     EditorModule,
+    FormsModule,
     SharedModule,
     MaterialModule
   ]

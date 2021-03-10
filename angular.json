@@ -24,8 +24,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/icon_squared.ico",
+              "src/ANTicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -93,8 +92,7 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/icon_squared.ico",
+              "src/ANTicon.ico",
               "src/assets"
             ]
           }

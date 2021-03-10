@@ -12,14 +12,16 @@
 </button>
 <!-- array of inserted notes -->
 <div *ngFor="let note of notes">
-  <span>{{note.measure || 'Misura della nota'}}</span>
-  <span innerHTML="{{note.text || 'Testo della nota'}}"></span>
+  <span>{{note.measure + '. ' || '[Misura della nota]: '}}</span>
+  <span innerHTML="{{note.text || '[Testo della nota]'}}"></span>
   <button
+    title="Modifica nota"
     mat-icon-button
     (click)="editNote(note)">
     <mat-icon>edit</mat-icon>
   </button>
   <button
+    title="Elimina nota"
     mat-icon-button
     (click)="removeNote(note)">
     <mat-icon>close</mat-icon>

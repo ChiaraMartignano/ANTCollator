@@ -5,6 +5,9 @@
   <mat-step label="Collaziona" [completed]="isCollationComplete">
     <app-collation-start></app-collation-start>
   </mat-step>
+  <mat-step label="Aggiungi metadati" [completed]="true">
+    <app-metadata></app-metadata>
+  </mat-step>
   <mat-step label="Aggiungi note d'apparato" [optional]="true">
     <app-notes></app-notes>
   </mat-step>
