@@ -95,8 +95,8 @@ export class CollatorService {
       }
     });
     var schema = `<?xml version="1.0" encoding="UTF-8"?>
-    <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-    <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>`;
+    <?xml-model href="http://music-encoding.org/schema/4.0.1/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+    <?xml-model href="http://music-encoding.org/schema/4.0.1/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>`;
     return schema + textDom.documentElement.outerHTML;
   }
 
@@ -126,9 +126,9 @@ export class CollatorService {
   
   addNotes(notes, list, dom) {
     for (var i = 0; i < notes.length; i++) {
-      var item = dom.createElementNS(this.ns, 'item');
+      var item = dom.createElementNS(this.ns, 'li');
       var num = dom.createElementNS(this.ns, 'num');
-      num.setAttribute('corresp', 'm' + notes[i].measure + '-app');
+      num.setAttribute('corresp', '#m' + notes[i].measure + '-app');
       var number = dom.createTextNode(notes[i].measure);
       num.appendChild(number);
       item.appendChild(num);
@@ -145,7 +145,7 @@ export class CollatorService {
     var htmlText = note.text.replace('&nbsp;', ' ');
     var htmlDom = parser.parseFromString(htmlText, 'text/html');
     var body = htmlDom.querySelector('body');
-    var teiElem = this.createTEINode(body, teiDom);
+    var teiElem = this.createTEINode(body.firstChild, teiDom);
     return teiElem;
   }
 
@@ -174,21 +174,22 @@ export class CollatorService {
       case 'span': {
         if (elem.getAttribute('class') === 'smuflchar') {
           newElem = dom.createElementNS(this.ns, 'symbol');
-          var num = elem.textContent.codePointAt(0).toString(16);
+          var num = elem.textContent.codePointAt(0).toString(16).toUpperCase();
+          console.log(elem.textContent, elem.textContent.codePointAt(0), num)
           newElem.setAttribute('glyph.num', 'U+' + num);
         }
       } break;
       case 'ul': case 'ol': {
         newElem = dom.createElementNS(this.ns, 'list');
-        var rend = elem.tagName === 'ul' ? 'bulleted' : 'numbered';
-        newElem.setAttribute('rend', rend);
+        var rend = elem.tagName === 'ul' ? 'simple' : 'ordered';
+        newElem.setAttribute('form', rend);
       } break;
       case 'li': {
-        newElem = dom.createElementNS(this.ns, 'item');
+        newElem = dom.createElementNS(this.ns, 'li');
       } break;
       case 'i': case 'strong': case 'u': case 'sub': case 'sup': {
-        newElem = dom.createElementNS(this.ns, 'hi');
-        newElem.setAttribute('rend', elem.tagName.toLowerCase());
+        newElem = dom.createElementNS(this.ns, 'seg');
+        newElem.setAttribute('type', elem.tagName.toLowerCase());
       } break;
       case 'a': {
         newElem = dom.createElementNS(this.ns, 'ref');
@@ -244,6 +245,7 @@ export class CollatorService {
 
     // SOURCEDESC
     var sourceDesc = dom.createElementNS(this.ns, 'sourceDesc');
+    console.log(data.sources)
     for (var i = 0; i < data.sources.length; i++) {
       var source = dom.createElementNS(this.ns, 'source'),
           bibl = dom.createElementNS(this.ns, 'bibl'),
